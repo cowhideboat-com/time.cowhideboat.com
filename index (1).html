@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <title>距離自由還有...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #003366; /* 主題藍色 */
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #countdown {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>距離 xxx 還有：</h1>
+  <div id="countdown">載入中...</div>
+
+  <footer>
+    &copy; 2025 CowhideBoat.com. 保留所有權利。
+  </footer>
+
+  <script>
+    // ⚙️ 設定目標時間（使用 GMT+8 時區）
+    const targetTime = new Date("2025-07-03T16:40:00+08:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const midnight = new Date(now);
+      midnight.setHours(0, 0, 0, 0);
+      midnight.setDate(midnight.getDate() + 1); // 下一個午夜
+
+      if (now >= midnight) {
+        document.getElementById("countdown").textContent = "放監了 🎉";
+        return;
+      }
+
+      let remainingMs = targetTime - now;
+      if (remainingMs <= 0) {
+        document.getElementById("countdown").textContent = "剩餘 0 分 0 秒";
+        return;
+      }
+
+      const totalSeconds = Math.floor(remainingMs / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById("countdown").textContent = `剩餘 ${minutes} 分 ${seconds} 秒`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000); // 每秒更新一次
+  </script>
+</body>
+</html>
